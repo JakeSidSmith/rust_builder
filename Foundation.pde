@@ -1,8 +1,7 @@
 class Foundation extends Part {
 
   Foundation() {
-    pos = new PVector(0, 0);
-    planks = 8;
+    this(0, 0);
   }
   
   Foundation(float x, float y) {

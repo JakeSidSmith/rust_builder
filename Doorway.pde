@@ -1,8 +1,7 @@
 class Doorway extends Part {
   
   Doorway() {
-    pos = new PVector(0, 0);
-    planks = 4;
+    this(0, 0);
   }
   
   Doorway(float x, float y) {

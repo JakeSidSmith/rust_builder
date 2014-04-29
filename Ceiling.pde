@@ -1,8 +1,7 @@
 class Ceiling extends Part {
   
   Ceiling() {
-    pos = new PVector(0, 0);
-    planks = 6;
+    this(0, 0);
   }
   
   Ceiling(float x, float y) {

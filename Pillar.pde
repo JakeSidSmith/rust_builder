@@ -1,8 +1,7 @@
 class Pillar extends Part {
   
   Pillar() {
-    pos = new PVector(0, 0);
-    planks = 2;
+    this(0, 0);
   }
   
   Pillar(float x, float y) {

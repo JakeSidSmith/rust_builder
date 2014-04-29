@@ -1,8 +1,7 @@
 class Wall extends Part {
   
   Wall() {
-    pos = new PVector(0, 0);
-    planks = 4;
+    this(0, 0);
   }
   
   Wall(float x, float y) {
