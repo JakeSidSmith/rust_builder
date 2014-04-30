@@ -1,3 +1,6 @@
+/* @pjs preload="background.png" */
+/* @pjs preload="logo.png"; */
+
 Sidebar sidebar;
 Part dragging;
 int buildSize = 80;
@@ -5,25 +8,33 @@ int totalPlanks = 0;
 
 ArrayList<Part> building = new ArrayList<Part>();
 
-color partFill = color(0, 20);
-color partStroke = color(0, 150);
-color partHoverFill = color(100, 150);
+color partFill = color(255, 50);
+color partStroke = color(0, 100);//color(255, 150);
+color partHoverFill = color(200, 150);
 color placeableFill = color(0, 255, 0, 80);
 
+PImage backgroundImage, logoImage;
+
 void setup(){
-  size(640, 640);
+  size(1024, 576);
   frameRate(30);
   ellipseMode(CENTER);
   textAlign(RIGHT);
+  imageMode(CORNER);
   reset();
+  
+  backgroundImage = loadImage("background.png");
+  logoImage = loadImage("logo.png");
 }
 
 void draw(){
-  background(255);
+  background(20);
   
-  fill(0);
-  text("Wood " + totalPlanks*10, width-220, 20, 200, 20);
-  text("Planks " + totalPlanks, width-220, 40, 200, 20);
+  for (int y = 0; y <= height; y += 32) {
+    for (int x = 0; x <= width; x += 32) {
+      image(backgroundImage, x, y, 32, 32);
+    }
+  }
   
   /*lights();
   fill(200);
@@ -49,6 +60,15 @@ void draw(){
     Part part = building.get(i);
     part.display(buildSize);
   }
+  
+  fill(220);
+  text("Resources", width-220, 20, 200, 20);
+  text("Wood: " + totalPlanks*10, width-220, 40, 200, 20);
+  text("Planks: " + totalPlanks, width-220, 60, 200, 20);
+  
+  image(logoImage, width-logoImage.width/2-16, height-logoImage.height/2-32, logoImage.width/2, logoImage.height/2);
+  fill(255, 100);
+  text("Unofficial Application", width-16, height-16);
 }
 
 void reset() {
@@ -83,8 +103,7 @@ void mouseReleased() {
 class Ceiling extends Part {
   
   Ceiling() {
-    pos = new PVector(0, 0);
-    planks = 6;
+    this(0, 0);
   }
   
   Ceiling(float x, float y) {
@@ -131,8 +150,7 @@ class Ceiling extends Part {
 class Doorway extends Part {
   
   Doorway() {
-    pos = new PVector(0, 0);
-    planks = 4;
+    this(0, 0);
   }
   
   Doorway(float x, float y) {
@@ -183,8 +201,7 @@ class Doorway extends Part {
 class Foundation extends Part {
 
   Foundation() {
-    pos = new PVector(0, 0);
-    planks = 8;
+    this(0, 0);
   }
   
   Foundation(float x, float y) {
@@ -289,8 +306,7 @@ class Part {
 class Pillar extends Part {
   
   Pillar() {
-    pos = new PVector(0, 0);
-    planks = 2;
+    this(0, 0);
   }
   
   Pillar(float x, float y) {
@@ -365,7 +381,7 @@ class Sidebar {
   
   void display() {
     noStroke();
-    fill(240);
+    fill(15);
     rect(0, 0, w, height);
     
     for (int i = 0; i < parts.size(); i += 1) {
@@ -378,8 +394,7 @@ class Sidebar {
 class Wall extends Part {
   
   Wall() {
-    pos = new PVector(0, 0);
-    planks = 4;
+    this(0, 0);
   }
   
   Wall(float x, float y) {
