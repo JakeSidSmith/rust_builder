@@ -9,6 +9,12 @@ class Doorway extends Part {
     planks = 4;
   }
   
+  Doorway(float x, float y, boolean flipped) {
+    pos = new PVector(x, y);
+    planks = 4;
+    this.flipped = flipped;
+  }
+  
   void move() {
     pos.x = round(mouseX / (buildSize/4)) * (buildSize/4);
     pos.y = round(mouseY / (buildSize/4)) * (buildSize/4);
@@ -25,7 +31,11 @@ class Doorway extends Part {
     }
     
     pushMatrix();
-      translate(pos.x + w/4, pos.y + w/2);
+      translate(pos.x, pos.y + w/2);
+      if (flipped) {
+        scale(-1, 1);
+      }
+      translate(w/4, 0);
       beginShape();
         vertex(-w/2, 0);
         vertex(-w/2, -w*0.75);
@@ -45,7 +55,7 @@ class Doorway extends Part {
   }
   
   void setPart() {
-    building.add(new Doorway(pos.x, pos.y));
+    building.add(new Doorway(pos.x, pos.y, flipped));
   }
   
 }

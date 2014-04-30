@@ -1,5 +1,6 @@
 class Part {
   
+  boolean flipped = false;
   PVector pos;
   int planks = 0;
   

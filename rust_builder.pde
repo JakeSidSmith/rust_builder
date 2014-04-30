@@ -75,6 +75,14 @@ void reset() {
   sidebar = new Sidebar();
 }
 
+void keyPressed() {
+  if (dragging != null) {
+    if (keyCode == 37 || keyCode == 39) {
+      dragging.flipped = !dragging.flipped;
+    }
+  }
+}
+
 void mousePressed() {
   for (int i = 0; i < sidebar.parts.size(); i += 1) {
     Part part = sidebar.parts.get(i);
