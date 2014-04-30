@@ -14,7 +14,7 @@ class Sidebar {
   
   void display() {
     noStroke();
-    fill(240);
+    fill(15);
     rect(0, 0, w, height);
     
     for (int i = 0; i < parts.size(); i += 1) {
