@@ -75,6 +75,14 @@ void reset() {
   sidebar = new Sidebar();
 }
 
+void keyPressed() {
+  if (dragging != null) {
+    if (keyCode == 37 || keyCode == 39) {
+      dragging.flipped = !dragging.flipped;
+    }
+  }
+}
+
 void mousePressed() {
   for (int i = 0; i < sidebar.parts.size(); i += 1) {
     Part part = sidebar.parts.get(i);
@@ -158,6 +166,12 @@ class Doorway extends Part {
     planks = 4;
   }
   
+  Doorway(float x, float y, boolean flipped) {
+    pos = new PVector(x, y);
+    planks = 4;
+    this.flipped = flipped;
+  }
+  
   void move() {
     pos.x = round(mouseX / (buildSize/4)) * (buildSize/4);
     pos.y = round(mouseY / (buildSize/4)) * (buildSize/4);
@@ -174,7 +188,11 @@ class Doorway extends Part {
     }
     
     pushMatrix();
-      translate(pos.x + w/4, pos.y + w/2);
+      translate(pos.x, pos.y + w/2);
+      if (flipped) {
+        scale(-1, 1);
+      }
+      translate(w/4, 0);
       beginShape();
         vertex(-w/2, 0);
         vertex(-w/2, -w*0.75);
@@ -194,7 +212,7 @@ class Doorway extends Part {
   }
   
   void setPart() {
-    building.add(new Doorway(pos.x, pos.y));
+    building.add(new Doorway(pos.x, pos.y, flipped));
   }
   
 }
@@ -266,6 +284,7 @@ class Foundation extends Part {
 }
 class Part {
   
+  boolean flipped = false;
   PVector pos;
   int planks = 0;
   
@@ -402,6 +421,12 @@ class Wall extends Part {
     planks = 4;
   }
   
+  Wall(float x, float y, boolean flipped) {
+    pos = new PVector(x, y);
+    planks = 4;
+    this.flipped = flipped;
+  }
+  
   void move() {
     pos.x = round(mouseX / (buildSize/4)) * (buildSize/4);
     pos.y = round(mouseY / (buildSize/4)) * (buildSize/4);
@@ -418,13 +443,16 @@ class Wall extends Part {
     }
     
     pushMatrix();
-      translate(pos.x + w/4, pos.y + w/2);
+      translate(pos.x, pos.y + w/2);
+      if (flipped) {
+        scale(-1, 1);
+      }
       beginShape();
-        vertex(-w/2, 0);
-        vertex(-w/2, -w*0.75);
-        vertex(0, -w);
-        vertex(0, -w*0.25);
-        vertex(-w/2, 0);
+        vertex(-w/4, 0);
+        vertex(-w/4, -w*0.75);
+        vertex(w/4, -w);
+        vertex(w/4, -w*0.25);
+        vertex(-w/4, 0);
       endShape();
     popMatrix();
   }
@@ -434,7 +462,7 @@ class Wall extends Part {
   }
   
   void setPart() {
-    building.add(new Wall(pos.x, pos.y));
+    building.add(new Wall(pos.x, pos.y, flipped));
   }
   
 }
